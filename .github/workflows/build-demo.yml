@@ -1,0 +1,20 @@
+name: Build Demo Artifact
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write artifact file
+        run: |
+          mkdir -p dist
+          echo 'ci-smoke-lab demo-build artifact' > dist/demo-build.txt
+          chmod +x dist/demo-build.txt
+      - name: Upload demo-build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-build
+          path: dist/demo-build.txt
+          if-no-files-found: error
